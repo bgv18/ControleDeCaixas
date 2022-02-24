@@ -1,3 +1,3 @@
 # ControleDeCaixas
 
-Apenas uma pessoa intediada estudando C#
+Apenas uma pessoa entediada estudando C#
