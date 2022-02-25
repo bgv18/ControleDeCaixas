@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ControleDeCaixas2.Class;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,9 +14,9 @@ namespace ControleDeCaixas2
 {
     public partial class updateBox : Form
     {
-        SqlConnection conexao = null;
-        private string con = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=Caixa;Data Source=GUERRA\SQLEXPRESS";
         private string sql = string.Empty;
+        SqlCommand cmd = new SqlCommand();
+        Conexao con = new Conexao();
         public updateBox()
         {
          
@@ -26,11 +27,9 @@ namespace ControleDeCaixas2
             tb_profundidade.Enabled = false;
             tb_quantidade.Enabled = false;
             sql = "select * from caixa";
-            conexao = new SqlConnection(con);
             try
             {
-                conexao.Open();
-                using (SqlDataAdapter da = new SqlDataAdapter(sql, conexao))
+                using (SqlDataAdapter da = new SqlDataAdapter(sql, con.conectar()))
                 {
                     using (DataTable dt = new DataTable())
                     {
@@ -67,8 +66,7 @@ namespace ControleDeCaixas2
         private void btn_salvar_Click(object sender, EventArgs e)
         {
             sql = @"update caixa set altura = @altura, largura = @largura, profundidade = @profundidade, quantidade = @quantidade where id = @id";
-            conexao = new SqlConnection(con);
-            SqlCommand cmd = new SqlCommand(sql, conexao);
+            SqlCommand cmd = new SqlCommand(sql, con.conectar());
 
             cmd.Parameters.Add("@id", SqlDbType.Int).Value = tb_id.Text;
             cmd.Parameters.Add("@altura", SqlDbType.Float).Value = tb_altura.Text;
@@ -78,7 +76,6 @@ namespace ControleDeCaixas2
 
             try
             {
-                conexao.Open();
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Caixa atualizada com sucesso!");
             }
@@ -86,11 +83,6 @@ namespace ControleDeCaixas2
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-
-            finally
-            {
-                conexao.Close();
             }
         }
     }

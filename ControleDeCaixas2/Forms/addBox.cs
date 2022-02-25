@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ControleDeCaixas2.Class;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,9 +26,9 @@ namespace ControleDeCaixas2
 
         }
 
-        SqlConnection conexao = null;
-        private string con = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=Caixa;Data Source=GUERRA\SQLEXPRESS";
         private string sql = string.Empty;
+        SqlCommand cmd = new SqlCommand();
+        Conexao con = new Conexao();
 
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -37,8 +38,7 @@ namespace ControleDeCaixas2
         private void btn_adicionar_Click(object sender, EventArgs e)
         {
             sql = "insert into caixa (id,altura,largura,profundidade,volume,quantidade) VALUES (@id,@altura,@largura,@profundidade,@volume,@quantidade)";
-            conexao = new SqlConnection(con);
-            SqlCommand cmd = new SqlCommand(sql,conexao);
+            SqlCommand cmd = new SqlCommand(sql,con.conectar());
             
             cmd.Parameters.Add("@id",SqlDbType.Int).Value = tb_id.Text;
             cmd.Parameters.Add("@altura", SqlDbType.Float).Value = tb_altura.Text;
@@ -49,7 +49,6 @@ namespace ControleDeCaixas2
 
             try
             {
-                conexao.Open();
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Caixa cadastrada com sucesso!");
             }
@@ -57,11 +56,6 @@ namespace ControleDeCaixas2
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-
-            finally
-            {
-                conexao.Close();
             }
 
             tb_id.Clear();

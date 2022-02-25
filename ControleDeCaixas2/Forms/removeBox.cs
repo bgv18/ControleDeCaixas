@@ -1,31 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using ControleDeCaixas2.Class;
+using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ControleDeCaixas2.Forms
 {
     public partial class removeBox : Form
     {
-        SqlConnection conexao = null;
-        private string con = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=Caixa;Data Source=GUERRA\SQLEXPRESS";
         private string sql = string.Empty;
+        SqlCommand cmd = new SqlCommand();
+        Conexao con = new Conexao();
+     
         public removeBox()
         {
             InitializeComponent();
+            btn_salvar.Enabled = false;
             tb_id.Enabled = false;
             sql = "select * from caixa";
-            conexao = new SqlConnection(con);
             try
             {
-                conexao.Open();
-                using (SqlDataAdapter da = new SqlDataAdapter(sql, conexao))
+                cmd.Connection = con.conectar();
+                using (SqlDataAdapter da = new SqlDataAdapter(sql, cmd.Connection))
                 {
                     using (DataTable dt = new DataTable())
                     {
@@ -53,18 +50,17 @@ namespace ControleDeCaixas2.Forms
         private void btn_novo_Click(object sender, EventArgs e)
         {
             tb_id.Enabled = true;
+            btn_salvar.Enabled = true;
         }
 
         private void btn_salvar_Click(object sender, EventArgs e)
         {
             sql = @"delete from caixa where id = @id";
-            conexao = new SqlConnection(con);
-            SqlCommand cmd = new SqlCommand(sql, conexao);
-
+           
+            SqlCommand cmd = new SqlCommand(sql, con.conectar());
             cmd.Parameters.Add("@id", SqlDbType.Int).Value = tb_id.Text;
             try
             {
-                conexao.Open();
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Caixa deletada com sucesso!");
             }
@@ -72,11 +68,6 @@ namespace ControleDeCaixas2.Forms
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-
-            finally
-            {
-                conexao.Close();
             }
         }
     }
