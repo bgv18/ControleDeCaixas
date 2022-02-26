@@ -8,35 +8,17 @@ namespace ControleDeCaixas2
 {
     internal class Box
     {
-        private static int _Id;
-        private static double _Altura;
-        private static double _Largura;
-        private static double _Comprimento;
-        private static double _Volume = _Altura * _Largura*_Comprimento;
-        private static int _Quantidade;
+        private int _Id { get; set; }
+        private double _Altura { get; set; }
+        private double _Largura { get; set; }
+        private double _Comprimento { get; set; }
+        private double _Volume { get; set; }
+        private int _Quantidade { get; set; }
 
-        public double Altura
+        public double CalculoVolume()
         {
-            get { return _Altura; }
-            set { _Altura = value; }         
+            _Volume = _Altura * _Largura * _Comprimento;
+            return _Volume;
         }
-        public double Largura
-        {
-            set { _Largura = value; }
-            get { return _Largura; }
-        }
-        public double Comprimento 
-        {
-            set { _Comprimento = value; }
-            get { return _Comprimento; }
-        }
-        public int Quantidade
-        {
-            get { return _Quantidade; }
-            set { _Quantidade = value; }
-        }
-
-
-
     }
 }
