@@ -1,5 +1,4 @@
-﻿using ControleDeCaixas2.Class;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Dapper;
 
 namespace ControleDeCaixas2
 {
@@ -25,20 +25,25 @@ namespace ControleDeCaixas2
             tb_volume.Enabled = false;
             tb_quantidade.Enabled = false;
 
+            SqlCommand cmd = new SqlCommand();
+
         }
 
-        private string sql = string.Empty;
-        SqlCommand cmd = new SqlCommand();
-        Conexao con = new Conexao();
-
-        private void sairToolStripMenuItem_Click(object sender, EventArgs e)
+        public void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void btn_adicionar_Click(object sender, EventArgs e)
+        public void btn_adicionar_Click(object sender, EventArgs e)
         {
-            sql = "insert into caixa (id,altura,largura,profundidade,volume,quantidade) VALUES (@id,@altura,@largura,@profundidade,@volume,@quantidade)";
+            var conexao = new SqlConnection("data source=DSVRESERVA; initial catalog=ControleDeCaixa;  user id=sa; password=cdssql;multipleactiveresultsets=true");
+            _boxCadastradas = conexao.Query<Box>("select * from caixa").ToList();
+            dgBox.AutoGenerateColumns = true;
+            bsCaixa.DataSource = _boxCadastradas;
+            dgBox.DataSource = _boxCadastradas;
+
+
+            /*sql = "insert into caixa (id,altura,largura,profundidade,volume,quantidade) VALUES (@id,@altura,@largura,@profundidade,@volume,@quantidade)";
             SqlCommand cmd = new SqlCommand(sql,con.conectar());
             
             cmd.Parameters.Add("@id",SqlDbType.Int).Value = tb_id.Text;
@@ -64,7 +69,7 @@ namespace ControleDeCaixas2
             tb_largura.Clear();
             tb_profundidade.Clear();
             tb_volume.Clear();
-            tb_quantidade.Clear();
+            tb_quantidade.Clear();*/
         }
 
         private void btn_cancelar_Click(object sender, EventArgs e)
@@ -79,7 +84,9 @@ namespace ControleDeCaixas2
 
         private void btn_novo_Click(object sender, EventArgs e)
         {
-            tb_id.Enabled = true;
+            tb_id.Enabled = false;
+            tb_id.BackColor = Color.Gray;
+            tb_altura.Focus();
             tb_altura.Enabled = true;
             tb_largura.Enabled = true;
             tb_profundidade.Enabled = true;
@@ -92,5 +99,11 @@ namespace ControleDeCaixas2
             dgBox.DataSource = null;
             dgBox.DataSource = _boxCadastradas;
         }
+
+        private void bsCaixa_CurrentChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
+

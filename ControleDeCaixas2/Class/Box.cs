@@ -12,13 +12,13 @@ namespace ControleDeCaixas2
         string Nome { get; set; }
         decimal Altura { get; set; }
         decimal Largura { get; set; }
-        decimal Comprimento { get; set; }
+        decimal Profundidade { get; set; }
         decimal Volume { get; set; }
         int Quantidade { get; set; }
 
         public double CalculoVolume()
         {
-            Volume = Altura * Largura * Comprimento;
+            Volume = Altura * Largura * Profundidade;
             return (double)Volume;
         }
     }
