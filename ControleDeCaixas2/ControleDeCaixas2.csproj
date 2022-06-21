@@ -68,7 +68,11 @@
       <DependentUpon>CaixaDB.xsd</DependentUpon>
     </Compile>
     <Compile Include="Class\Box.cs" />
+    <Compile Include="Class\BoxItens.cs" />
     <Compile Include="Class\Conexao.cs" />
+    <Compile Include="Class\Frete.cs" />
+    <Compile Include="Class\Pedido.cs" />
+    <Compile Include="Class\PedidoItens.cs" />
     <Compile Include="Forms\addBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +84,12 @@
     </Compile>
     <Compile Include="Forms\ControleDeCaixa.Designer.cs">
       <DependentUpon>ControleDeCaixa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\login.Designer.cs">
+      <DependentUpon>login.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\removeBox.cs">
       <SubType>Form</SubType>
@@ -106,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ControleDeCaixa.resx">
       <DependentUpon>ControleDeCaixa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\login.resx">
+      <DependentUpon>login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\removeBox.resx">
       <DependentUpon>removeBox.cs</DependentUpon>

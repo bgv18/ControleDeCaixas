@@ -41,12 +41,15 @@
             this.dataGridView_caixa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_caixa.Location = new System.Drawing.Point(37, 26);
             this.dataGridView_caixa.Name = "dataGridView_caixa";
+            this.dataGridView_caixa.RowHeadersVisible = false;
+            this.dataGridView_caixa.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_caixa.Size = new System.Drawing.Size(555, 318);
             this.dataGridView_caixa.TabIndex = 0;
             this.dataGridView_caixa.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_caixa_CellContentClick);
             // 
             // btn_sair
             // 
+            this.btn_sair.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btn_sair.Location = new System.Drawing.Point(262, 363);
             this.btn_sair.Name = "btn_sair";
             this.btn_sair.Size = new System.Drawing.Size(96, 39);

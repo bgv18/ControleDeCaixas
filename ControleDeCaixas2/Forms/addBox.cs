@@ -14,6 +14,7 @@ namespace ControleDeCaixas2
 {
     public partial class addBox : Form
     {
+        List<Box> _boxCadastradas;
         public addBox()
         {
             InitializeComponent();
@@ -84,6 +85,12 @@ namespace ControleDeCaixas2
             tb_profundidade.Enabled = true;
             tb_volume.Enabled = true;
             tb_quantidade.Enabled = true;
+        }
+
+        private void addBox_Load(object sender, EventArgs e)
+        {
+            dgBox.DataSource = null;
+            dgBox.DataSource = _boxCadastradas;
         }
     }
 }
